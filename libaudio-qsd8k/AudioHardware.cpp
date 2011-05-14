@@ -202,6 +202,7 @@ AudioHardware::AudioHardware() :
     hac_enable = atoi(value);
     LOGV("Enable HAC function: %d", hac_enable);
 
+    mRecordState = false;
     mInit = true;
 }
 
