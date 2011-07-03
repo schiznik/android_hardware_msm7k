@@ -30,4 +30,5 @@ LOCAL_SRC_FILES := 	\
 	
 LOCAL_MODULE := gralloc.msm7k
 LOCAL_CFLAGS:= -DLOG_TAG=\"gralloc\"
+LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
