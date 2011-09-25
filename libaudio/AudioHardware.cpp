@@ -465,7 +465,7 @@ status_t AudioHardware::setFmOnOff(bool onoff)
 
 status_t AudioHardware::setFmVolume(float v)
 {
-#if defined(HAVE_BCM_FM_RADIO) || defined(HAVE_TI_FM_RADIO)
+#if defined(HAVE_BCM_FM_RADIO)
 
     float ratio = 2.5;
     int volume = (unsigned int)(AudioSystem::logToLinear(v) * ratio);
@@ -473,19 +473,12 @@ status_t AudioHardware::setFmVolume(float v)
     char volhex[10] = "";
     sprintf(volhex, "0x%x ", volume);
 
-#ifdef HAVE_TI_FM_RADIO
-    char volreg[100] = "hcitool cmd 0x3f 0x135 0x1c 0x02 0x00 ";
-#endif
 #ifdef HAVE_BCM_FM_RADIO
     char volreg[100] = "hcitool cmd 0x3f 0xa 0x5 0xe0 0x41 0xf 0 ";
 #endif
 
     strcat(volreg, volhex);
 
-#ifdef HAVE_TI_FM_RADIO
-    strcat(volreg, "0x00");
-    system(volreg);
-#endif
 #ifdef HAVE_BCM_FM_RADIO
     strcat(volreg, "0 0 0");
 
@@ -494,7 +487,7 @@ status_t AudioHardware::setFmVolume(float v)
     system(volreg);
 #endif
 
-#endif // HAVE_BCM_FM_RADIO || HAVE_TI_FM_RADIO
+#endif // HAVE_BCM_FM_RADIO
 
     return NO_ERROR;
 }
